@@ -25,15 +25,29 @@ class session
             return null;
         }
     }
+    
+    static function setUnlimited()
+    {
+        
+    }
 
+    static function getID()
+    {
+        if (session_status() == PHP_SESSION_NONE)
+        {
+            self::init();
+        }
+        return session_id();
+    }
+    
     static function set($arg, $val)
     {
         if (session_status() == PHP_SESSION_NONE)
         {
             self::init();
         }
+        misc::writeDebug("Write to session: {$arg} => {$val}");
         $_SESSION[$arg] = $val;
-        return new self();
     }
 
     static function remove($arg)
@@ -46,7 +60,6 @@ class session
         {
             unset($_SESSION[$arg]);
         }
-        return self;
     }
 
     static function destroy()
@@ -63,12 +76,14 @@ class session
             session_write_close();
             $_SESSION = null;
         }
-        return self;
     }
 
-    static private function init()
+    static function init($unlimited = false)
     {
-        session_set_cookie_params(60 * 60 * 24 * 14);
+        if($unlimited)
+        {
+            session_set_cookie_params(60 * 60 * 24 * 14);
+        }
         session_start();
     }
 

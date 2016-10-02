@@ -10,11 +10,17 @@ php_flag display_errors on
 php_flag html_errors on
 php_flag log_errors on
 
-php_value upload_max_filesize 256M
-php_value post_max_size 256M
-
+php_value upload_max_filesize 512M
+php_value post_max_size 512M
+php_value max_input_vars 2000
 
 RewriteEngine on
+
+RewriteRule ^confirm/(.+)$ index.php?route=confirm&code=$1%{QUERY_STRING} [L]
+RewriteRule ^listen/(.+)$  index.php?route=listen&stream_id=$1%{QUERY_STRING} [L]
+
+RewriteRule ^modules/(.+)/(.+)\.(.+)$  index.php?route=module&type=$1&name=$2&%{QUERY_STRING} [L]
+RewriteRule ^modules/(.+)$  index.php?route=module&type=exec&name=$1&%{QUERY_STRING} [L]
 
 # Redirect All
 RewriteCond %{REQUEST_FILENAME} !-d

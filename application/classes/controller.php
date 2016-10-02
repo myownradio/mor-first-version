@@ -1,95 +1,84 @@
 <?php
 
-class controller 
+class controller
 {
 
-    private static function post_controller($route) 
-    {
-    /* Doing some action */
-        user::loginBySession();
-        
-        switch($route) 
-        {
-            case 'login': /* DONE */
-                echo user::loginUser();
-                break;
-            case 'request': /* Request registration e-mail */
-                echo user::requestRegistration();
-                break;
-            case 'confirm': /* Complete registration */
-                echo user::registerUser();
-                break;
-            case 'radiomanager/upload': 
-                echo tracks::AudioUpload();
-                break;
-            case 'radiomanager/changeinfo':
-                echo tracks::changeInfo(
-                        application::post('tid'), 
-                        application::post('artist'), 
-                        application::post('title'), 
-                        application::post('genre')
-                        );
-                break;
-            case 'radiomanager/removetrack':
-                echo tracks::Remove(application::post('tid'));
-                break;
-            default:
-		echo 'UNKNOWN_REQUEST';
-        }
-    }
-	
-    private static function get_controller($route) 
-    {
-	header("Content-Type: text/html; charset=utf8");
-	switch($route) 
-        {
-            case 'api':
-                $action = application::get('get_info');
-                switch ($action)
-                {
-                    case 'current_track':
-                        print_r( streams::getCurrentTrack(application::get('stream_id')) );
-                        break;
-                }
-                break;
-            case 'stream':              /* Display radio stream page */
-                $stream     = stream::getStreamPosition(1);
-                $next       = stream::getNextTrack(1, $stream['id']);
-                echo 'Current time: ' . date("H:i:s", time()) . '<br>';
-                echo 'Stream 1 position: <br>';
-                echo 'track_id=<b>' . $stream['id'] . '</b> <br>';
-                echo 'track_time=<b>' . misc::convertSecondsToTime($stream['time'] / 1000) . '</b> <br>';
-                echo 'track_title=<b>' . $stream['title'] . '</b><br>';
-                echo 'stream_pos=<b>'.$stream['position'].'</b><br>';
-                echo 'Next track: ' . $next['artist'] . ' - ' . $next['title'] . '<br>';
-                echo 'RTC: ' . streams::rtcCalculate(1, '2');
-                break;
-            case 'radiomanager': 
-		echo '<html><body><form method="post" action="/radiomanager/upload" enctype="multipart/form-data"><input type="file" name="file" accept="audio/*" /><input type="submit" value="Upload" /></form></body></html>';
-                break;
-            case 'rnd':
-		print_r( streams::getTracksFromStream(1) );
-		break;
-            default:
-                /* Displaying 404 */
-                echo '404';
-                break;
-        }
-    }
-	
-    static function start() 
-    {
-        $route = trim( application::get('route', 'index'), '/' );
+    private static $obIgnore = array(
+        'radiomanager/previewAudio',
+        'radiomanager/eventListen',
+        'streamStatus'
+    );
 
-        if( application::getMethod() == 'GET' ) 
+    static function start()
+    {
+        user::loginBySession();
+
+        $route = preg_replace('/(\.(html|php)$)|(\/+$)/', '', application::get('route', 'index'));
+        
+        //echo $route; exit();
+
+        $route_exp = explode('/', $route);
+
+        // Check private zone
+        if ($route_exp[0] == 'radiomanager' && user::getCurrentUserId() == 0)
         {
-            self::get_controller($route);
+            if (application::getMethod() === "GET")
+            {
+                header("HTTP/1.1 401 Unauthorized");
+                header("refresh:0;url=/login");
+                exit();
+            }
+            else
+            {
+                misc::errorJSON("ERROR_UNAUTHORIZED");
+            }
+        }
+
+        // test for module alias
+        $module = application::getModuleNameByAlias($route);
+        if($module)
+        {
+            echo application::getModule($module, array(), application::getAll());
+            exit();
+        }
+        
+        $route_exp[count($route_exp) - 1] = sprintf('controller_%s', $route_exp[count($route_exp) - 1]);
+
+        // Check universal module
+        foreach (array('uni', strtolower(application::getMethod())) as $method)
+        {
+            $ctrl_file = sprintf("application/controllers/%s/%s.php", $method, implode('/', $route_exp));
+            if (file_exists($ctrl_file))
+            {
+                if (is_bool(array_search($route, self::$obIgnore)))
+                {
+                    header("Connection: close");
+                    ob_start("ob_gzhandler");
+                    include $ctrl_file;
+                    header("Content-Length: " . ob_get_length());
+                    ob_end_flush();
+                    flush();
+
+                    //application::saveStat();
+                    //misc::writeDebug("do something in the background");               
+                }
+                else
+                {
+                    include $ctrl_file;
+                }
+                exit();
+            }
+        }
+
+        if (application::getMethod() == 'GET')
+        {
+            header("HTTP/1.1 404 Not found");
+            application::getModule("error.404");
         }
         else
         {
-            self::post_controller($route);
+            misc::errorJSON("ERROR_NOT_FOUND");
         }
-        
     }
 
 }
