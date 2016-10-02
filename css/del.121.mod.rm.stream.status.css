@@ -1,0 +1,15 @@
+.rm_status_wrap {
+    line-height: 48px;
+    padding: 0 8px;
+
+}
+
+.rm_status_wrap .ttl {
+    font-weight: bold;
+
+}
+
+.rm_status_wrap li {
+       overflow: hidden;
+    text-overflow: ellipsis; 
+}

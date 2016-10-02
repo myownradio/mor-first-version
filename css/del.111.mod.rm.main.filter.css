@@ -1,0 +1,109 @@
+div.rm_filter_wrap {
+    padding-top: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+    overflow: hidden;
+    
+}
+
+div.rm_filter_wrap ul.sort_order {
+    overflow: hidden;
+}
+
+div.rm_filter_wrap ul.sort_order:before {
+    content: 'Sort order:';
+    float: left;
+    line-height: 25px;
+    padding-right: 8px;
+}
+
+div.rm_filter_wrap ul.sort_order > li {
+    float: left;
+    padding: 0px 8px;
+    height: 25px;
+    line-height: 25px;
+    cursor: pointer;
+}
+
+div.rm_filter_wrap ul.sort_order > li:not(.active):hover {
+    color: #39c;
+}
+
+div.rm_filter_wrap ul.sort_order > li:not(:last-child) {
+    margin-right: 8px;
+}
+
+div.rm_filter_wrap ul.sort_order > li.active {
+    background: #39c;
+    border-radius: 3px;
+    color: #fff;
+}
+
+div.rm_filter_wrap ul.sort_order > li.active:after {
+    padding-left: 4px;
+    -color: #fff;
+}
+
+div.rm_filter_wrap ul.sort_order > li.active.asc:after {
+    content: '\25B2';
+}
+
+div.rm_filter_wrap ul.sort_order > li.active.desc:after {
+    content: '\25BC';
+}
+
+div.rm_filter_wrap ul.sort_filter {
+    overflow: hidden;
+}
+
+div.rm_filter_wrap ul.sort_filter:before {
+    content: 'Filter:';
+    float: left;
+    line-height: 25px;
+    padding-right: 8px;
+}
+
+div.rm_filter_wrap ul.sort_filter > li {
+    float: left;
+    position: relative;
+}
+
+div.rm_filter_wrap ul.sort_filter > li > input[type="text"] {
+    width: 300px;
+    border-radius: 3px;
+    border: 1px solid #eee;
+    height: 23px;
+    padding: 0px 8px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color linear 250ms;
+}
+
+div.rm_filter_wrap ul.sort_filter > li > input[type="text"]:focus {
+    border: 1px solid #39c;
+    padding-right: 16px;
+}
+
+div#filterReset {
+    width: 21px;
+    height: 21px;
+    background: #fff url("/images/iconClose.png") no-repeat center center;
+    cursor: pointer;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    z-index: 20;
+    margin-top: 1px;
+    margin-right: 1px;
+    box-sizing: border-box;
+    opacity: 0.6;
+    display: none
+}
+
+div#filterReset.visible {
+    display: block;
+}
+
+div#filterReset:hover {
+opacity: 1;
+}

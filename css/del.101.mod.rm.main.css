@@ -1,0 +1,271 @@
+body,html {
+    font-family: "Open Sans";
+    font-size: 9pt;
+    height: 100%;
+}
+
+body {
+    position: relative;
+}
+
+b {
+    font-weight: bold;
+}
+
+body,html,ul { margin: 0; }
+
+.rm_max_width { width: 100%; margin: 0 auto; }
+
+#rm_logo {
+    font-size: 14pt;
+    font-weight: bold;
+    color: #39c;
+}
+
+.rm_header_wrap {
+    border-bottom: 1px solid #eeeeee;
+    position: relative;
+    overflow: visible;
+    height: 64px;
+    background: #ffffff;
+}
+
+.rm_menu_wrap {
+    height: 64px;
+    line-height: 64px;
+    list-style-type: none;
+    margin: 0 4px;
+    padding: 0;
+}
+
+.rm_menu_wrap > li {
+    float: left;
+    margin: 0 8px;
+}
+
+.rm_sidebar_wrap {
+    border-right: 1px solid #eeeeee;
+    width: 200px;
+    box-sizing: border-box;
+    display: table-cell;
+    vertical-align: top;
+}
+
+.rm_sidebar_wrap h1 {
+    padding-left: 8px;
+}
+
+.rm_sidebar_content {
+    padding: 0;
+    padding-top: 8px;
+}
+
+.rm_sidebar_list {
+    padding-bottom: 12px;
+}
+
+.rm_sidebar_list > li {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 12px;
+    padding-right: 8px;
+}
+
+.rm_sidebar_list > li > a {
+    display: block;
+}
+
+
+.rm_body_wrap {
+    display: table;
+}
+
+.rm_content_wrap {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.rm_tbl_row {
+    display: table-row;
+}
+
+.rm_badge {
+    border-radius: 3px;
+    color: #ffffff;
+    box-shadow: inset 1px 1px 4px #888888;
+    text-shadow: 0px 0px 1px rgba(0, 0, 0, 1);
+    background-color: #bbbbbb;
+    padding: 1px 6px 2px 6px;
+    font-size: 8pt;
+    font-weight: bold;
+    width: 20px;
+    text-align: center;
+}
+
+.rm_fl_left { float: left }
+.rm_fl_right { float: right }
+
+a {
+    color: #000000;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #39c;
+}
+
+h1 {
+    font-size: 13pt;
+    padding-bottom: 8px;
+}
+
+.rm_sep {
+    height: 10px;
+}
+
+.rm_ui_button {
+    border: 1px solid #dddddd;
+    background: #f8f8f8;
+    padding: 2px 6px;
+    border-radius: 3px;
+    cursor: pointer;
+    outline: none;
+    vertical-align: middle;
+}
+
+
+.rm_ui_button:hover {
+    background: #ffffff;
+}
+
+.rm_ui_button:active {
+    padding-left: 7px;
+    padding-right: 5px;
+    padding-top: 3px;
+    padding-bottom: 1px;
+    background: #f1f1f1;
+}
+
+.rm_track_drag {
+    padding: 8px;
+    border-radius: 3px;
+    background: #ffffff;
+    border: 1px solid #eeeeee;
+}
+
+.rm_ui_def_button {
+    border: 1px solid #dddddd;
+    background: #f8f8f8;
+    border-radius: 3px;
+    cursor: pointer;
+    outline: none;
+    vertical-align: middle;
+    width: 100px;
+    padding: 4px 0;
+    transtition: background-color linear 250ms;
+}
+
+.rm_ui_def_button:hover {
+    background: #ffffff;
+}
+
+.rm_ui_def_button:active {
+    padding-top: 5px;
+    padding-bottom: 3px;
+    background: #f1f1f1;
+}
+
+.rm_ui_input_text {
+    border-radius: 3px;
+    outline: none;
+    border: 1px solid #dddddd;
+    padding: 8px;
+    box-sizing: border-box;
+    transition: border-color linear 500ms, background-color linear 500ms;
+}
+
+.rm_ui_input_text[readonly] {
+    color: #888;
+}
+
+.rm_ui_input_text:not([readonly]):focus {
+    border-color: #5594b4;
+}
+
+.rm_ui_status {
+    color: #f66;
+}
+
+.rm_ui_textarea {
+    font: inherit;
+    border-radius: 3px;
+    outline: none;
+    border: 1px solid #dddddd;
+    padding: 8px;
+    box-sizing: border-box;
+    transition: border-color linear 500ms, background-color linear 500ms;
+    resize: none;
+}
+
+.rm_ui_textarea:focus {
+    border-color: #5594b4;
+}
+
+.rm_ui_input_warn {
+    color: #f66;
+    position: absolute;
+    box-sizing: border-box;
+    padding: 8px 0px;
+}
+
+.rm_ui_input_div {
+    border-radius: 3px;
+    outline: none;
+    border: 1px solid #dddddd;
+    padding: 6px 8px;
+    box-sizing: border-box;
+    transition: border-color linear 500ms, background-color linear 500ms;
+}
+
+.rm_ui_input_clear {
+    border: none;
+    background: #eee;
+    outline: none;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+}
+
+.rm_genre_close {
+    width: 8px;
+    height: 8px;
+    margin-left: 4px;
+    cursor: pointer;
+}
+
+.placeholder {
+    position: absolute;
+    color: #aaa;
+}
+
+.dynTop {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+i[class*="icon-"] {
+    margin-right: 6px;
+}
+
+.fl_l {
+    float: left;
+}
+
+.fl_r {
+    float: right;
+}

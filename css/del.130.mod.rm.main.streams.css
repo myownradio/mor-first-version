@@ -1,0 +1,28 @@
+.rm_sidebar_list {
+    
+}
+
+.rm_sidebar_list > .current {
+    background-color: #c2c7d1;
+}
+
+ul.rm_streamlist:empty:after {
+    padding: 4px;
+    content: 'No streams yet';
+}
+
+ul.rm_streamlist > li.selected {
+    background-color: #eee;
+}
+
+ul.rm_streamlist > li .rm_playStream {
+    display: none;
+}
+
+ul.rm_streamlist > li:hover .rm_badge {
+    display: none;
+}
+
+ul.rm_streamlist > li:hover .rm_playStream {
+    display: block;
+}
