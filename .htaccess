@@ -1,0 +1,22 @@
+#AuthType Basic
+#AuthName "Password Protected Area"
+#AuthUserFile /usr/domains/tedirens.com/admin/.htpasswd
+#Require valid-user
+
+SetEnv   LC_ALL  en_US.UTF-8
+
+php_flag display_startup_errors on
+php_flag display_errors on
+php_flag html_errors on
+php_flag log_errors on
+
+php_value upload_max_filesize 256M
+php_value post_max_size 256M
+
+
+RewriteEngine on
+
+# Redirect All
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php?route=$1 [L,QSA]
